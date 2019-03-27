@@ -3,8 +3,8 @@ FLAGS = -outputdir dist
 all: problema1 problema2 problema3 problema4 problema5 problema6
 
 clean:
-	rm dist/*
-	rm problema1 problema2 problema3 problema4 problema5 problema6
+	rm -rf dist 2>/dev/null
+	rm problema1 problema2 problema3 problema4 problema5 problema6 2>/dev/null
 
 problema1:
 	ghc problema1.hs ${FLAGS}
