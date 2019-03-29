@@ -1,16 +1,10 @@
 euclides :: Int -> Int -> Int
-
-euclides a b =
-    if b == 0 then a
-        else euclides b (mod a b)
+euclides a b | (b == 0) = a
+             | otherwise = euclides b (mod a b)
 
 coprimes :: Int -> Int -> Bool
-
-coprimes a b = 
-    if euclides a b == 1 then
-        True
-    else
-        False
+coprimes a b | (euclides a b == 1) = True 
+             | otherwise = False
 
 main = do
     print ("Checagem coprimos. Digite os inputs")

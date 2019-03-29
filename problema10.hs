@@ -1,9 +1,7 @@
-maior :: Float -> Float -> Float -> Float
-
-maior a b c = if a >= b && a >= c
-    then a
-    else if b >= a && b >= c then b
-        else c
+greatest :: Float -> Float -> Float -> Float
+greatest a b c | (a >= b && a >= c) = a
+               | (b >= a && b >= c) = b
+               | otherwise = c
 
 main = do
     print ("Digite os 3 valores separados por enter")
@@ -16,4 +14,4 @@ main = do
     let b = (read strB :: Float) 
     let c = (read strC :: Float) 
 
-    print (maior a b c)
+    print (greatest a b c)

@@ -1,8 +1,6 @@
 euclides :: Int -> Int -> Int
-
-euclides a b =
-    if b == 0 then a
-        else euclides b (mod a b)
+euclides a b | (b == 0) = a
+             | otherwise = euclides b (mod a b)
 
 
 

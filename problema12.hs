@@ -1,24 +1,16 @@
 euclides :: Int -> Int -> Int
-mdc :: Int -> Int -> Int -> Int 
+euclides a b | (b == 0) = a
+             | otherwise = euclides b (mod a b)
+
 greatest :: Int -> Int -> Int -> Int
+greatest a b c | (a >= b && a >= c) = a
+               | (b >= a && b >= c) = b
+               | otherwise = c
 
-
-greatest a b c = if a >= b && a >= c
-    then a
-    else if b >= a && b >= c then b
-        else c
-
-euclides a b =
-    if b == 0 then a
-        else euclides b (mod a b)
-
-mdc a b c =
-    if greatest a b c == a then 
-        euclides a (euclides b c)
-    else if greatest a b c == b then
-        euclides b (euclides a c)
-    else
-        euclides c (euclides a b)
+mdc :: Int -> Int -> Int -> Int 
+mdc a b c | (greatest a b c == a) = euclides a (euclides b c)
+          | (greatest a b c == b) = euclides b (euclides a c)
+          | otherwise = euclides c (euclides a b)
 
 main = do
     print ("Algoritmo de Euclides")
