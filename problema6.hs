@@ -1,20 +1,17 @@
-checkTriangle :: Float -> Float -> Float -> String
+cabeca :: [Int] -> Int
+cabeca (a:_) = a
 
-checkTriangle a b c =
-    if a + b > c && a + c > b && b + c > a
-        then
-            "formam triangulo"
-        else
-            "nao formam triangulo"
+rabo :: [Int] -> [Int]
+rabo (_:a) = a
+
+ocorrencias :: [Int] -> Int -> Int
+ocorrencias [] _ = 0
+ocorrencias (a : b) c | (a == c) = 1 + ocorrencias b c
+                      | otherwise = ocorrencias b c
 
 main = do
-    print "Digite os lados do triangulo, separados por enter"
-    sideA <- getLine
-    sideB <- getLine
-    sideC <- getLine
-
-    let a = (read sideA :: Float)
-    let b = (read sideB :: Float)
-    let c = (read sideC :: Float)
-
-    print("Estes lados " ++ checkTriangle a b c)
+    let foo = [2, 3, 4, 5, 4 ,3, 2, 6, 7]
+    print(ocorrencias foo 2)
+    print(ocorrencias foo 3)
+    print(ocorrencias foo 7)
+    print(ocorrencias foo 14)

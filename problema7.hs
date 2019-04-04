@@ -1,11 +1,24 @@
-fibonacci :: Int -> Int
-fibonacci n | (n == 0) = 0
-            | (n == 1) = 1
-            | otherwise = fibonacci (n - 1) + fibonacci (n - 2)
+alunos :: [(Int, String, Float)]
+alunos = [(1, "Ana", 3.4), (2, "Bob", 6.7), (3, "Tom", 7.6)]
+
+getNome :: (Int, String, Float) -> String
+getNome (a,b,c) = b
+
+getPrimeiroAluno :: [(Int, String, Float)] -> (Int, String, Float)
+getPrimeiroAluno (a:_) = a
+
+gerarPares :: [t] -> [u] -> [(t,u)] 
+gerarPares l1 l2 = [(a,b) | a <- l1, b <- l2]
+
+aprovado :: (Int, String, Float) -> Bool
+aprovado (_, _, c) | (c >= 6.0) = True
+                   | otherwise = False
+
+aprovados :: [(Int, String, Float)] -> [String]
+aprovados lista = map getNome (filter aprovado lista)
+
+-- aprovados2 :: [(Int, String, Float)] -> [String]
 
 main = do
-    print "Digite um inteiro nao muito grande pra nao estourar a pilha"
-    nStr <- getLine
-    let n = (read nStr :: Int)
-
-    print("Fib(" ++ nStr ++ ") = " ++ show (fibonacci n))
+    print (getPrimeiroAluno alunos)
+    print (aprovados alunos)

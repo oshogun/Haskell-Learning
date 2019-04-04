@@ -1,25 +1,10 @@
--- Definição da função que avalia alunos
-evaluateStudent :: Float -> Float -> Float -> String
+busca :: [Int] -> Int -> Bool
+busca [] _ = False
+busca (a : b) elem | (elem == a) = True
+                   | otherwise = busca b elem
 
-evaluateStudent a b c =
-    if (a + b + c) / 2 >= 6.0 then
-        "Aprovado"
-    else 
-        "Reprovado"
-
--- Teste da função
-main = do 
-    print "Ferramenta de julgamento de alunos"
-
-    print "Digite a nota da prova 1"
-    p1 <- getLine 
-    print "Digite a nota da prova 2"
-    p2 <- getLine 
-    print "Digite a nota da prova 3"
-    p3 <- getLine 
-
-    let a = read p1 :: Float
-    let b = read p2 :: Float 
-    let c = read p3 :: Float 
-
-    print("O aluno esta " ++ evaluateStudent a b c)
+main = do
+    let foo = [2, 5, 9, 8, 15]
+    print(busca foo 2)
+    print(busca foo 15)
+    print(busca foo 23)

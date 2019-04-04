@@ -1,12 +1,16 @@
--- Definição de uma função que faz exatamente a mesma coisa
--- que a função abs padrão do Haskell
-absolute :: Float -> Float 
-absolute x | (x >= 0) = x
-           | otherwise = -x
+size :: [Int] -> Int
+size [] = 0
+size (a : b) = 1 + size b
 
--- Teste da função
+soma :: [Int] -> Int
+soma [] = 0
+soma (a:b) = a + soma b
+
+media :: [Int] -> Float
+media [] = 0
+media l = 
+    fromIntegral(soma l) / fromIntegral(size l)
+
 main = do
-    print "Digite o valor do qual deseja obter o valor absoluto"
-    xStr <- getLine
-    let x = (read xStr :: Float)
-    print ("O valor eh " ++ show (absolute x))
+    let foo = [2, 3, 5, 7]
+    print(media foo)

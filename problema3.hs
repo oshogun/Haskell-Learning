@@ -1,17 +1,15 @@
--- Definição de uma função de cálculo de área de triângulo
-area :: Float -> Float -> Float 
-area base height = (base * height) / 2
+cabeca :: [Int] -> Int
+cabeca (a:_) = a
 
--- Teste da função 
-main = do 
-    print ("--- Calculo de area de triangulos ---")
-    putStrLn ""
-    print ("Digite a base do triangulo e tecle ENTER:")
-    baseStr <- getLine
-    print ("Digite a altura do triangulo e tecle ENTER:")
-    heightStr <- getLine
+rabo :: [Int] -> [Int]
+rabo (_:a) = a
 
-    let base = (read baseStr :: Float)
-    let height = (read heightStr :: Float)
+menor :: [Int] -> Int
+menor [] = 0
+menor [x] = x
+menor (a : b) | (a <= cabeca b) = menor (a : (rabo b))
+              | otherwise = menor b
 
-    print("A area do triangulo eh: " ++ show(area base height))
+main = do
+    let listao = [4, 2, 3, 1]
+    print(menor listao)
