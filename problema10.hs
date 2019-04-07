@@ -1,17 +1,9 @@
-greatest :: Float -> Float -> Float -> Float
-greatest a b c | (a >= b && a >= c) = a
-               | (b >= a && b >= c) = b
-               | otherwise = c
+filtrar :: (t -> Bool) -> [t] -> [t]
+filtrar func lista = [x | x <- lista, func x]
+
+negativo :: Int -> Bool
+negativo n | (n < 0) = True
+           | otherwise = False
 
 main = do
-    print ("Digite os 3 valores separados por enter")
-
-    strA <- getLine
-    strB <- getLine
-    strC <- getLine
-
-    let a = (read strA :: Float)
-    let b = (read strB :: Float) 
-    let c = (read strC :: Float) 
-
-    print (greatest a b c)
+    print(filtrar negativo [3,-2,5,9,-3])

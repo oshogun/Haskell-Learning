@@ -4,19 +4,14 @@ all: problema1 problema2 problema3 problema4 all1
 
 all1: problema5 problema6 problema7 problema8 problema9 all2
 
-all2: problema10 problema11 problema12 problema13 all4
-
-all4: problema14 problema15 problema16 problema17 all5
-
-all5: problema18
+all2: problema10 problema11 problema12 problema13
 
 clean:
 	rm -rf dist 2>/dev/null
 	rm problema1 problema2 problema3 problema4
 	rm problema5 problema6 problema7 problema8
 	rm problema9 problema10 problema11 problema12
-	rm problema13 problema14 problema15 problema16
-	rm problema17 problema18
+	rm problema13
 
 problema1:
 	ghc problema1.hs ${FLAGS}/1
@@ -56,18 +51,3 @@ problema12:
 
 problema13:
 	ghc problema13.hs ${FLAGS}/13
-
-problema14:
-	ghc problema14.hs ${FLAGS}/14
-
-problema15:
-	ghc problema15.hs ${FLAGS}/15
-
-problema16:
-	ghc problema16.hs ${FLAGS}/16
-
-problema17:
-	ghc problema17.hs ${FLAGS}/17
-
-problema18:
-	ghc problema18.hs ${FLAGS}/18
