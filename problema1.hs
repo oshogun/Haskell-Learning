@@ -27,10 +27,17 @@ getMedia a = do
     
     (n1 + n2 + n3) / 3
 
+somaAlunos :: Int -> Float
+somaAlunos 0 = getMedia (aluno 0)
+
+somaAlunos n = getMedia (aluno n) + somaAlunos (n - 1)
+
 getMediaTurma :: Int -> Float
 getMediaTurma n | (n == 0) = getMedia(aluno 0)
-                | otherwise getMedia(aluno n) + getMedia(aluno n - 1) / n 
+                | otherwise = (somaAlunos n / fromIntegral n) 
+
 main = do
     print(getNome(aluno 0) ++ " " ++ (show (getMedia (aluno 0))))
     print(getNome(aluno 2) ++ " " ++ (show (getMedia (aluno 2))))
-    print(getNome(aluno 32) ++ " " ++ (show (getMedia (aluno 32))))
+    print(getMediaTurma 2)
+    

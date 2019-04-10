@@ -1,12 +1,12 @@
--- Definição de uma função que faz exatamente a mesma coisa
--- que a função abs padrão do Haskell
-absolute :: Float -> Float 
-absolute x | (x >= 0) = x
-           | otherwise = -x
+data Forma = Circulo Float | Retangulo Float Float | Triangulo Float Float
 
--- Teste da função
+area :: Forma -> Float
+area (Circulo r) = pi * r * r 
+area (Retangulo b a) = b * a
+area (Triangulo b a) = (b * a) / 2
+
+trianguloTeste :: Forma
+trianguloTeste = (Triangulo 2 4)
+
 main = do
-    print "Digite o valor do qual deseja obter o valor absoluto"
-    xStr <- getLine
-    let x = (read xStr :: Float)
-    print ("O valor eh " ++ show (absolute x))
+    print(area trianguloTeste)

@@ -1,25 +1,17 @@
--- Definição da função que avalia alunos
-evaluateStudent :: Float -> Float -> Float -> String
+-- O newtype funciona de forma muito semelhante ao data. A sintaxe é 
+-- idêntica, e se você trocar todos os newtype por data, é bem provável
+-- que compile e funcione. A principal diferença, é que o newtype recebe
+-- exatamente um construtor com exatamente um tipo, sendo portanto usado
+-- quando se deseja que o novo tipo a ser criado e o tipo do campo
+-- sejam isomórficos, permitindo que se trate os dois tipos como diferentes
+-- em tempo de compilação, porém idênticos em tempo de execução, removendo
+-- overhead.
 
-evaluateStudent a b c =
-    if (a + b + c) / 2 >= 6.0 then
-        "Aprovado"
-    else 
-        "Reprovado"
+-- Exemplo
 
--- Teste da função
-main = do 
-    print "Ferramenta de julgamento de alunos"
+newtype Name = Name String -- permitido
 
-    print "Digite a nota da prova 1"
-    p1 <- getLine 
-    print "Digite a nota da prova 2"
-    p2 <- getLine 
-    print "Digite a nota da prova 3"
-    p3 <- getLine 
+-- newtype Person = Person String Int não permitido
 
-    let a = read p1 :: Float
-    let b = read p2 :: Float 
-    let c = read p3 :: Float 
+data Person = Person String Int -- permitido
 
-    print("O aluno esta " ++ evaluateStudent a b c)

@@ -1,17 +1,18 @@
--- Definição de uma função de cálculo de área de triângulo
-area :: Float -> Float -> Float 
-area base height = (base * height) / 2
+data Ponto = Ponto2D Float Float | Ponto3D Float Float Float
 
--- Teste da função 
-main = do 
-    print ("--- Calculo de area de triangulos ---")
-    putStrLn ""
-    print ("Digite a base do triangulo e tecle ENTER:")
-    baseStr <- getLine
-    print ("Digite a altura do triangulo e tecle ENTER:")
-    heightStr <- getLine
+distancia :: Ponto -> Ponto -> Float
+distancia (Ponto2D a b) (Ponto2D c d) =
+    sqrt ((c - a)**2 + (d - b)**2)
 
-    let base = (read baseStr :: Float)
-    let height = (read heightStr :: Float)
+distancia (Ponto3D a b c) (Ponto3D d e f) =
+    sqrt ((d - a)**2 + (e - b)**2 + (f - c)**2)
 
-    print("A area do triangulo eh: " ++ show(area base height))
+main = do
+    let ponto1 = Ponto2D 3.4 2.3
+    let ponto2 = Ponto2D 2.2 5.5
+
+    let ponto3 = Ponto3D 3.2 4.2 5.2
+    let ponto4 = Ponto3D 4.2 5.2 6.2
+
+    print(distancia ponto1 ponto2)
+    print(distancia ponto3 ponto4)
