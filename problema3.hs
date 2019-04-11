@@ -1,21 +1,65 @@
-data Ponto = Ponto2D Float Float 
+data Arvore = Null | No Int Arvore Arvore
 
-distancia :: Ponto -> Ponto -> Float
-distancia (Ponto2D a b) (Ponto2D c d) =
-    sqrt ((c - a)**2 + (d - b)**2)
+minhaArvore :: Arvore
+minhaArvore = No 52 (No 12 (No 12 Null Null) (No 52 Null Null)) (No 56 (No 52 Null Null) (No 64 Null Null))
+
+somaElementos :: Arvore -> Int
+somaElementos Null = 0
+somaElementos (No n esq dir) = n + (somaElementos esq) + (somaElementos dir)
+
+buscaElemento :: Arvore -> Int -> Bool
+buscaElemento Null _ = False
+buscaElemento (No n esq dir) x 
+    | (n == x) = True                           
+    | otherwise = (buscaElemento esq x) || (buscaElemento dir x)
+
+limiteSup :: Int
+limiteSup = 1000 --Define um limite superior para o maior número
+
+minimo :: Int -> Int -> Int
+minimo x y | (x < y) = x
+           | otherwise = y
+
+minimoElemento :: Arvore -> Int
+minimoElemento Null = limiteSup 
+minimoElemento (No n esq dir) = 
+    minimo n (minimo (minimoElemento esq) (minimoElemento dir))
+
+-- Retorna a profundidade de um elemento na arvore
+-- Se o elemento não estiver na arvore, retorna -1
+profundidadeElemento :: Arvore -> Int -> Int
+profundidadeElemento Null _ = -1 -- arvore nula nao possui nenhum elemento
+profundidadeElemento (No n esq dir) x
+    | (n == x) = 0 -- passo base
+    | (buscaElemento esq x) = 1 + profundidadeElemento esq x -- encontrado na subarvore da esquerda
+    | (buscaElemento dir x) = 1 + profundidadeElemento dir x -- encontrado na subarvore da direita
+    | otherwise = -1 -- nao encontrado
 
 
-determinante :: Ponto -> Ponto -> Ponto -> Float
-determinante (Ponto2D x1 y1) (Ponto2D x2 y2) (Ponto2D x3 y3) =
-    (x1 * y2) + (y1 * x3) + (x2 * x3) - (y1 * x2) - (x1 * y3) - (y2 * x3)
-colineares :: Ponto -> Ponto -> Ponto -> Bool
+-- Retorna uma lista de folhas vazias na arvore
+folhasImpares :: Arvore -> [Int]
+folhasImpares Null = []
+folhasImpares (No n Null Null) -- No folha
+    | (n `mod` 2 /= 0) = [n] -- n impar
+    | otherwise = [] -- n par desconsiderado
+folhasImpares (No n esq dir)
+    = folhasImpares esq ++ folhasImpares dir -- concatena as folhas das arvores filhas
 
-colineares a b c = ((determinante a b c) == 0)
+elementosRepetidos :: Arvore -> Int
+elementosRepetidos Null = 0
+elementosRepetidos (No n esq dir)
+    | (buscaElemento esq n || buscaElemento dir n) =
+        1 + (elementosRepetidos esq) + (elementosRepetidos dir)
+    | otherwise = (elementosRepetidos esq) + (elementosRepetidos dir)    
 
-    
-main = do
-    let ponto1 = Ponto2D 2.0 1.0
-    let ponto2 = Ponto2D 0.0 (-3.0)
-    let ponto3 = Ponto2D (-2.0) (-7.0)
-    print(distancia ponto1 ponto2)
-    print(colineares ponto1 ponto2 ponto3)
+
+main = do putStrLn (show (somaElementos minhaArvore))
+          putStrLn (show (buscaElemento minhaArvore 30))
+          putStrLn (show (buscaElemento minhaArvore 55))
+          putStrLn (show (minimoElemento minhaArvore))
+          print (profundidadeElemento minhaArvore 30)
+          print (profundidadeElemento minhaArvore 55)
+          print (profundidadeElemento minhaArvore 12)
+          print (profundidadeElemento minhaArvore 52)
+          print(folhasImpares minhaArvore)
+          print (elementosRepetidos minhaArvore)

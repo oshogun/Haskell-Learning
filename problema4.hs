@@ -1,62 +1,35 @@
-data Arvore = Null | No Int Arvore Arvore
+type Ponto = (Float, Float)
+type Raio = Float 
+type Circulo = (Ponto, Raio)
 
-minhaArvore :: Arvore
-minhaArvore = No 55 (No 32 (No 12 Null Null) (No 35 Null Null)) (No 56 (No 55 Null Null) (No 64 Null Null))
-
-somaElementos :: Arvore -> Int
-somaElementos Null = 0
-somaElementos (No n esq dir) = n + (somaElementos esq) + (somaElementos dir)
-
-buscaElemento :: Arvore -> Int -> Bool
-buscaElemento Null _ = False
-buscaElemento (No n esq dir) x 
-    | (n == x) = True                           
-    | otherwise = (buscaElemento esq x) || (buscaElemento dir x)
-
-limiteSup :: Int
-limiteSup = 1000 --Define um limite superior para o maior número
-
-minimo :: Int -> Int -> Int
-minimo x y | (x < y) = x
-           | otherwise = y
-
-minimoElemento :: Arvore -> Int
-minimoElemento Null = limiteSup 
-minimoElemento (No n esq dir) = 
-    minimo n (minimo (minimoElemento esq) (minimoElemento dir))
-
-ocorrenciasElemento :: Arvore -> Int -> Int
-ocorrenciasElemento Null _ = 0
-ocorrenciasElemento (No n esq dir) x
-    | (n == x)  = 1 + (ocorrenciasElemento esq x) + (ocorrenciasElemento dir x)
-    | otherwise = (ocorrenciasElemento esq x) + (ocorrenciasElemento dir x)
-
-maioresQueElemento :: Arvore -> Int -> Int
-maioresQueElemento Null _ = 0
-maioresQueElemento (No n esq dir) x
-    | (n > x) = 1 + (maioresQueElemento esq x) + (maioresQueElemento dir x)
-    | otherwise = (maioresQueElemento esq x) + (maioresQueElemento dir x)
+c = (2.2, 3.5)
+pontin = (2.4, 3.9)
+pontin2 = (9.5, 9.7)
+circulo = (c, 4.0)
 
 
-quantidade :: Arvore -> Int
-quantidade Null = 0
-quantidade(No n esq dir) = 1 + quantidade esq + quantidade dir
+centroCirculo :: Circulo -> Ponto
+centroCirculo (ponto, _) = ponto 
 
-mediaElementos :: Arvore -> Float
-mediaElementos Null = 0
-mediaElementos arv =
-    fromIntegral(somaElementos arv) / fromIntegral (quantidade arv)
+raioCirculo :: Circulo -> Float
+raioCirculo (_, r) = r
 
-elementos :: Arvore -> [Int]
-elementos Null = []
-elementos (No n esq dir) = [n] ++ elementos(esq) ++ elementos(dir)
+distancia :: Ponto -> Ponto -> Float 
+distancia (x1, y1) (x2, y2)
+    = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-main = do putStrLn (show (somaElementos minhaArvore))
-          putStrLn (show (buscaElemento minhaArvore 30))
-          putStrLn (show (buscaElemento minhaArvore 55))
-          putStrLn (show (minimoElemento minhaArvore))
-          print(ocorrenciasElemento minhaArvore 55)
-          print(maioresQueElemento minhaArvore 25)
-          print(quantidade minhaArvore)
-          print(mediaElementos minhaArvore)
-          print(elementos minhaArvore)
+pertence :: Ponto -> Circulo -> Bool
+pertence x (centro, raio) 
+    = (distancia x centro) <= raio 
+
+dentro :: Circulo -> [Ponto] -> [Ponto]
+dentro circulo pontos =
+    [x | x <- pontos, pertence x circulo]
+
+main = do
+    print (c)
+    print (circulo)
+    print (pertence c circulo)
+    print (pertence pontin circulo)
+    print (pertence pontin2 circulo)
+    print (dentro circulo [c, pontin, pontin2])
