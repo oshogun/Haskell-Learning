@@ -1,43 +1,23 @@
-type Nome = String
-type Disciplina = String
-type Nota = Float
-type Aluno = (Nome, Disciplina, Nota, Nota, Nota)
+import Data.List
 
-aluno :: Int -> Aluno
-aluno 0 = ("Hermanoteu", "Paradigmas", 10, 6.5, 5.3)
-aluno 1 = ("Micalateia", "SO II", 0, 0, 1.2)
-aluno 2 = ("Guilherme", "Formais", 10, 10, 10)
+procurar :: Int -> [Int] -> Bool
+procurar _ [] = False
+procurar n (x:xs)
+    | (n == x) = True
+    | otherwise = procurar n xs
 
-getNome :: Aluno -> Nome
-getNome (n, _,  _, _, _) = n
+removerDuplicados :: [Int] -> [Int]
+removerDuplicados [] = []
+removerDuplicados (x:xs) 
+    | procurar x xs = removerDuplicados xs
+    | otherwise = x : removerDuplicados xs
 
-getNota1 :: Aluno -> Nota
-getNota2 :: Aluno -> Nota
-getNota3 :: Aluno -> Nota
+mesmosElementos :: [Int] -> [Int] -> Bool
 
-getNota1 (_,_,n,_,_) = n
-getNota2 (_,_,_,n,_) = n
-getNota3 (_,_,_,_,n) = n
-
-getMedia :: Aluno -> Float
-getMedia a = do
-    let n1 = (getNota1 a)
-    let n2 = (getNota2 a)
-    let n3 = (getNota3 a)
-    
-    (n1 + n2 + n3) / 3
-
-somaAlunos :: Int -> Float
-somaAlunos 0 = getMedia (aluno 0)
-
-somaAlunos n = getMedia (aluno n) + somaAlunos (n - 1)
-
-getMediaTurma :: Int -> Float
-getMediaTurma n | (n == 0) = getMedia(aluno 0)
-                | otherwise = (somaAlunos n / fromIntegral n) 
+mesmosElementos a b = 
+   ((removerDuplicados a) \\ (removerDuplicados b)) == []
 
 main = do
-    print(getNome(aluno 0) ++ " " ++ (show (getMedia (aluno 0))))
-    print(getNome(aluno 2) ++ " " ++ (show (getMedia (aluno 2))))
-    print(getMediaTurma 2)
-    
+    let l1 = [2, 2, 3, 3, 4, 5, 1]
+    let l2 = [1, 2, 3, 4, 5]
+    print(mesmosElementos l1 l2)

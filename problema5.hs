@@ -15,3 +15,5 @@ newtype Name = Name String -- permitido
 
 data Person = Person String Int -- permitido
 
+main = do
+    print ("oi")
