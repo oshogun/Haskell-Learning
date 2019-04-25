@@ -1,0 +1,7 @@
+O polimorfismo ad-hoc é o polimorfismo de sobrecarga e de coerção. Polimorfismo de sobrecarga consiste em 
+polimorfismo baseado no tipo dos parâmetros. Polimorfismo por coerção consiste em polimorfismo baseado na 
+definição das classes como uma hierarquia de tipos.
+
+O polimorfismo universal paramétrico é aquele em que o tipo do dado a ser tratado é um dos parâmetros da função,
+ou seja, a função é genérica e independe do tipo de dado usado. Já o polimorfismo de inclusão é aquele em que
+os subtipos podem usar as mesmas operações que os supertipos.

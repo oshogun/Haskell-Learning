@@ -1,0 +1,13 @@
+Classes primárias são classes que não são definidas à partir de outras classes.
+Ex.: Eq, Enum e Monad
+
+Classes secundárias são classes definidas à partir de outras classes. São exemplos
+Ord (definida à partir de Eq), Num (definida à partir de Eq e Show) e os tipos numéricos 
+que também herdam Eq e Show. São portanto, classes implementadas usando herança.
+
+As classes numéricas do Haskell (Real, Integral, Fractional, Floating, RealFrac e RealFloat) são 
+classes que implementam métodos numéricos para se trabalhar sobre as classes Int, Integer, Float e Double.
+A classe Real possui apenas um método, toRational, que converte o número real para um número racional. Essa 
+classe é herdada pelas classes Integral e RealFrac. A classe RealFrac herda de Real e Fractionary e é 
+herdada por RealFloat.
+
